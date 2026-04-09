@@ -1,13 +1,24 @@
-const mongoose= require('mongoose')
+const mongoose = require('mongoose');
 
-// O Schema define a "cara" do nosso dado
-const CorridaSchema = new mongoose.Schema ({
-    motorista: String,
-    valor: { type: Number, required: true },
-    distancia: { type: Number, required: true },
-    combustivel: { type: Number, required: true },
-    plataforma: String,
-    data: { type: Date, default: Date.now}
-})
+const CorridaSchema = new mongoose.Schema({
+  // Se você tiver "motorista" ou "distancia" como required: true, o erro 400 acontece.
+  // Vamos deixar apenas o que estamos enviando agora como obrigatório:
+  valor: { 
+    type: Number, 
+    required: true 
+  },
+  combustivel: { 
+    type: Number, 
+    required: true 
+  },
+  plataforma: { 
+    type: String, 
+    default: 'Uber' 
+  },
+  data: { 
+    type: Date, 
+    default: Date.now 
+  }
+});
 
-module.exports = mongoose.model('Corrida', CorridaSchema)
+module.exports = mongoose.model('Corrida', CorridaSchema);

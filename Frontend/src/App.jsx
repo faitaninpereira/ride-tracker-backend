@@ -35,7 +35,7 @@ function App() {
       setCombustivel('');
       buscarDados(); // Atualiza os números na tela
     } catch (error) {
-      alert("❌ Erro ao salvar corrida. Verifique o console.");
+      alert("❌ Erro ao salvar corrida. Verifique o console.", error);
     } finally {
       setCarregando(false);
     }

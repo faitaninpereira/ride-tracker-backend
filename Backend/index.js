@@ -1,6 +1,6 @@
 require('dotenv').config(); // Carrega as variáveis do .env
 const mongoose = require('mongoose');
-const app = require('./app');
+const app = require('./src/app');
 const PORT = 3000;
 
 // Conexão com o MongoDB usando a variável de ambiente

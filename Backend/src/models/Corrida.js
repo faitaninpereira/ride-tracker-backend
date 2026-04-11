@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 
 const CorridaSchema = new mongoose.Schema({
-  // Se você tiver "motorista" ou "distancia" como required: true, o erro 400 acontece.
-  // Vamos deixar apenas o que estamos enviando agora como obrigatório:
+  // Vinculamos a corrida ao ID de um usuário do MongoDB
+  usuario: {
+    Type: mongoose.Schema.Types.ObjectId,
+    ref: 'Usuario',
+    required: true
+  },
   valor: { 
     type: Number, 
     required: true 
@@ -13,7 +17,7 @@ const CorridaSchema = new mongoose.Schema({
   },
   plataforma: { 
     type: String, 
-    default: 'Uber' 
+    enum: ['Uber', '99', 'Particular'], default: 'Uber'
   },
   data: { 
     type: Date, 

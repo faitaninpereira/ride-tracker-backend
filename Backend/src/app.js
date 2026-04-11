@@ -2,12 +2,17 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const corridaController = require('./controllers/corridaController');
+const authController = require('./controllers/authController')
 
 // Middlewares
 app.use(express.json()); // Faz o Express entender JSON no corpo das requisições
 app.use(cors());         // Libera o acesso para o seu Frontend (React)
 
 // --- ROTAS ---
+
+// ROTAS DE AUTENTICAÇÃO
+app.post('/auth/registrar', authController.registrar)
+app.post('auth/login', authController.login)
 
 // Rota de Teste
 app.get('/', (req, res) => res.send("Servidor Online!"));

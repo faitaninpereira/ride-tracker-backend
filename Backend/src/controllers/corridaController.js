@@ -1,10 +1,15 @@
 const Corrida = require('../models/Corrida');
 
 const corridaController = {
+
   // 1. Criar uma nova corrida
   criar: async (req, res) => {
     try {
-      const novaCorrida = new Corrida(req.body);
+      // Pegamos os dados do corpo e o ID do usuário que o middleware achou no token
+      const novaCorrida = new Corrida({
+        ...req.body,
+      usuario: req.usuario.id
+    });
       const corridaSalva = await novaCorrida.save();
       res.status(201).json(corridaSalva);
     } catch (erro) {
@@ -25,7 +30,9 @@ const corridaController = {
   // 3. Buscar resumo financeiro (A "Lógica de Ouro")
   resumir: async (req, res) => {
     try {
-      const corridas = await Corrida.find();
+
+      // IMPORTANTE: Agora buscamos apenas as corridas do usuário logado!
+      const corridas = await Corrida.find({ usuario: req.usuario.id });
 
       let totalGanhos = 0;
       let totalGastos = 0;

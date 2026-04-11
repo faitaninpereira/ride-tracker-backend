@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const CorridaSchema = new mongoose.Schema({
   // Vinculamos a corrida ao ID de um usuário do MongoDB
   usuario: {
-    Type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Usuario',
     required: true
   },

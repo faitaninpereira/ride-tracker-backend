@@ -14,7 +14,8 @@ const authController = {
                 return res.status(400).json({ mensagem: "E-mail já cadastrado!" })
 
             // Criptografa a senha (Segurança nível bancário)
-            const salt = await bcrypt.hash(senha, salt)
+            const salt = await bcrypt.genSalt(10)
+            const senhaCriptografada = await bcrypt.hash(senha, salt)
 
             const novoUsuario = new Usuario({
                 nome, 
@@ -23,7 +24,7 @@ const authController = {
             })
 
             await novoUsuario.save()
-            res.status(201).json({ mensagem: "Erro ao registrar", erro: erro.message })
+            res.status(201).json({ mensagem: "Sucesso ao registrar" })
 
         } catch (erro) {
             res.status(500).json({ mensagem: "Erro ao registrar", erro: erro.message })

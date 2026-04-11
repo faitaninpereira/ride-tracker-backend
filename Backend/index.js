@@ -1,12 +1,14 @@
 require('dotenv').config(); // Carrega as variáveis do .env
 const mongoose = require('mongoose');
 const app = require('./src/app');
+const connectDB = require('./src/banco_de_dados/db')
+
 const PORT = 3000;
 
-// Conexão com o MongoDB usando a variável de ambiente
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("✅ Conectado ao MongoDB com sucesso!");
-    app.listen(PORT, () => console.log(`🚀 Servidor rodando em http://localhost:${PORT}`));
-  })
-  .catch(err => console.error("❌ Erro ao conectar ao MongoDB:", err));
+// 1. Primeiro conecta ao Banco
+connectDB().then(() => {
+    // 2. Só depois de conectar, o servidor "abre as portas"
+    app.listen(PORT, () => {
+        console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+    });
+});

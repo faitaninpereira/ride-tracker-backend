@@ -41,6 +41,11 @@ const authController = {
             if (!usuario) 
                 return res.status(400).json({ mensagem: "E-mail ou senha incorretos!" })
 
+            // Validando Senha
+            const senhaValida = await bcrypt.compare(senha, usuario.senha)
+            if (!senhaValida)
+                return res.status(400).json({ mensagem: "E-mail ou senha incorretos!" })
+
             // Gera o Token KWT (válido por 1 dia)
             const token = jwt.sign(
                 { id: usuario._id },

@@ -20,7 +20,7 @@ const corridaController = {
   // 2. Listar todas as corridas
   listarTodas: async (req, res) => {
     try {
-      const corridas = await Corrida.find().sort({ data: -1 }); // Mostra as mais recentes primeiro
+      const corridas = await Corrida.find({ usuario: req.usuario.id }).sort({ data: -1 }); // Mostra as mais recentes primeiro
       res.json(corridas);
     } catch (erro) {
       res.status(500).json({ mensagem: "Erro ao buscar corridas", erro: erro.message });
